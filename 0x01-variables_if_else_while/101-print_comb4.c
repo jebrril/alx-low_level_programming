@@ -7,28 +7,28 @@
  */
 int main(void)
 {
-	int n, i, t;
+int n, i, t;
 
-	for (n = '0'; n <= '9'; n++)
-    {
-        for (i = '0'; i <= '9'; i++)
-        {
-            for (t = '0'; t <= '9'; t++)
-            {
-                if (n < i && i < t)
-                {
-                    putchar(n);
-                    putchar(i);
-                    putchar(t);
-                    if (n != '7')
-                    {
-                        putchar(',');
-                        putchar(' ');
-                    }
-                }
-            }
-        }
-    }
-	putchar('\n');
-	return (0);
+for (n = '0'; n <= '9'; n++)
+{
+	for (i = '0'; i <= '9'; i++)
+	{
+		for (t = '0'; t <= '9'; t++)
+		{
+			if (n < i && i < t)
+			{
+				putchar(n);
+				putchar(i);
+				putchar(t);
+				if (n != '7')
+				{
+					putchar(',');
+					putchar(' ');
+				}
+			}
+		}
+	}
+}
+putchar('\n');
+return (0);
 }
