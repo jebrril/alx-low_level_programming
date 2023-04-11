@@ -1,5 +1,4 @@
 #include <stdio.h>
-/*by div-styl*/
 /**
  * main - print the number of argument in the program
  * @argc: the number of the argument willing to be printed
