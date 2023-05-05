@@ -1,23 +1,19 @@
-#include "holberton.h"
+#include "main.h"
 
 /**
- * get_bit - get bit at index
- * @n: number
- * @index: index within binary number
- * Return: bit 0 or 1, or -1 if error
+ * get_bit - function to get a bit
+ * @index: index.
+ * @n: placeholder
+ * Return: the value of index, or -1 if it fails
  */
-int get_bit(unsigned long int n, unsigned int index)
+int get_bit(unsigned long int n, unsigned long int index)
 {
-	int bit;
-	unsigned int max_bits;
+	unsigned int value;
 
-	/* validate index is not out of range */
-	max_bits = (sizeof(unsigned long int) * 8);
-	if (index > max_bits)
+	if (index > 63)
 		return (-1);
 
-	/* shift number index places right to find bit */
-	bit = ((n >> index) & 1);
+	value = (n >> index) & 1;
 
-	return (bit);
+	return (value);
 }
