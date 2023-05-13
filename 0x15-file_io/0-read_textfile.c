@@ -1,37 +1,42 @@
 #include "main.h"
-#include <stdlib.h>
-
+/*by JEBRRIL*/
 /**
- * read_textfile - Reads a text file and prints it to standard output.
- * @filename: PNT => name OF FL
- * @bytes_to_read: num of bytes.
- * Return: FIALS&NULL => 0.
- *         Otherwise - num of bytes.
- */
-ssize_t read_textfile(const char *filename, size_t bytes_to_read)
+ * read_textfile - reads a text file and prints it to the POSIX standard output
+ * @filename: pointer to the file
+ * @letters: number of letters it should read and print
+ * Return: actual number of letters it could read and print
+*/
+ssize_t read_textfile(const char *filename, size_t letters)
 {
-	ssize_t file_descriptor, bytes_read, bytes_written;
-	char *buffer;
+	int fd, rd, wr;
+	char *bff;
 
 	if (filename == NULL)
 		return (0);
-
-	buffer = malloc(sizeof(char) * bytes_to_read);
-	if (buffer == NULL)
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
 		return (0);
-
-	file_descriptor = open(filename, O_RDONLY);
-	bytes_read = read(file_descriptor, buffer, bytes_to_read);
-	bytes_written = write(STDOUT_FILENO, buffer, bytes_read);
-
-	if (file_descriptor == -1 || bytes_read == -1 || bytes_written == -1 || bytes_written != bytes_read)
+	bff = malloc(sizeof(char) * letters);
+	if (bff == NULL)
 	{
-		free(buffer);
+		close(fd);
 		return (0);
 	}
-
-	free(buffer);
-	close(file_descriptor);
-
-	return (bytes_written);
+	rd = read(fd, bff, letters);
+	if (rd == -1)
+	{
+		free(bff);
+		close(fd);
+		return (0);
+	}
+	wr = write(STDOUT_FILENO, bff, rd);
+	if (wr == -1)
+	{
+		free(bff);
+		close(fd);
+		return (0);
+	}
+	free(bff);
+	close(fd);
+	return (wr);
 }
