@@ -45,3 +45,6 @@ Our shell has support for the following built-in commands:
 ### Credits
 
 All code written by [Ella](https://github.com/EllaLawrie) and [Alexxy](https://github.com/Lexxyla).
+=======
+-   By JEBRRIL
+>>>>>>> d1e6aa4a3b96b49b9af9b8687ed1776b40f05795
