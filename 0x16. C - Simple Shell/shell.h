@@ -1,81 +1,67 @@
 #ifndef SHELL_H
 #define SHELL_H
-
+/*colors*/
+#define BLOD "\x1b[1m"
+#define RED "\x1b[31m"
+#define GREEN "\x1b[32m"
+#define YELLOW "\x1b[33m"
+#define RESET "\x1b[0m"
+/*macros*/
+#define PATH_MAX 4096
+#define input stdin
+extern char **environ;
+/*headers*/
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <unistd.h>
+#include <limits.h>
+#include <fcntl.h>
 #include <errno.h>
-#include <dirent.h>
-#include <signal.h>
+#include <stdbool.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <ctype.h>
+#include <stddef.h>
+#include <stdlib.h>
+/*functions_helper*/
+int _putchar(char c);
+int _strlen(char *s);
+char _puts(char *str);
+char *_strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
+char *_strdup(char *str);
+/*prototypes*/
+char *_getenv(char *PATH);
+int _execute(char *argv[]);
+char **_allocate_strtoke(char *value);
+int handl_built_fnc(char *cmd, char **args);
+void environment_fnc(char **args __attribute((unused)));
+void exit_fnc(char **args);
+char *get_path(char *command);
+int handle_space_tab(char *cmd);
 
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+char *_strtok(char *str, const char *delimiter);
 
-/*constants*/
-#define EXTERNAL_COMMAND 1
-#define INTERNAL_COMMAND 2
-#define PATH_COMMAND 3
-#define INVALID_COMMAND -1
+/* setenv */
+int _setenv(const char *name, const char *value, int overwrite);
+int is_environment(char *name);
+int concat_env(char *env_name, char *env_value);
+void setenv_fnc(char **args);
+extern char **__environ;
+void print_env(void);
+/* unsetenv */
+int _unsetenv(char *name);
+extern char **__environ;
+void print_env(void);
+/* cd */
+int _chdir(char *path);
+/*comment*/
+void shell_comments(char *cmd);
 
-#define min(x, y) (((x) < (y)) ? (x) : (y))
-
-/**
- *struct map - a struct that maps a command name to a function 
- *
- *@command_name: name of the command
- *@func: the function that executes the command
- */
-
-typedef struct map
-{
-	char *command_name;
-	void (*func)(char **command);
-} function_map;
-
-extern char **environ;
-extern char *line;
-extern char **commands;
-extern char *shell_name;
-extern int status;
-
-/*helpers*/
-void print(char *, int);
-char **tokenizer(char *, char *);
-void remove_newline(char *);
-int _strlen(char *);
-void _strcpy(char *, char *);
-
-/*helpers2*/
-int _strcmp(char *, char *);
-char *_strcat(char *, char *);
-int _strspn(char *, char *);
-int _strcspn(char *, char *);
-char *_strchr(char *, char);
-
-/*helpers3*/
-char *_strtok_r(char *, char *, char **);
-int _atoi(char *);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void ctrl_c_handler(int);
-void remove_comment(char *);
-
-/*utils*/
-int parse_command(char *);
-void execute_command(char **, int);
-char *check_path(char *);
-void (*get_func(char *))(char **);
-char *_getenv(char *);
-
-/*built_in*/
-void env(char **);
-void quit(char **);
-
-/*main*/
-extern void non_interactive(void);
-extern void initializer(char **current_command, int type_command);
-
-#endif /*SHELL_H*/
-
-
+#endif
