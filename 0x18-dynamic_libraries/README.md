@@ -1,1 +1,1 @@
-alx C project
+ALX SE Dynamic libraries
